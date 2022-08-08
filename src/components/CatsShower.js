@@ -1,25 +1,33 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 
 export default function CatsShower() {
-    const [cat, setCat] = useState()
+    const [cat, setCat] = useState({})
 
-    useEffect(() => {
-        async function getCat() {
-            const res = await axios.get(
-                "https://api.thecatapi.com/v1/images/search"
-            );
+    async function getRandomCat() {
+        const res = await axios.get("https://api.thecatapi.com/v1/images/search");
+        return res.data[0];
+    }
 
-            setCat(res.data);
-        }
+    async function getCatData(id) {
+        return await axios.get(`https://api.thecatapi.com/v1/images/${id}`);
+    }
 
-        getCat()
+    async function getCat() {
+        const {id} = await getRandomCat();
+        return getCatData(id)
+    }
 
-    }, []);
-    console.log(cat, "cat")
+    async function loadCat() {
+        const {data} = await getCat();
+        setCat(data);
+    }
+
     return (
         <div>
-            {cat && <img src={cat[0].url} alt="cat image"/>}
+            <button onClick={() => loadCat()}>Tab</button>
+            <h4>{cat.id}</h4>
+            <img src={cat.url} alt="cat image"/>
         </div>
     )
 }
