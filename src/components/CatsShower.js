@@ -44,7 +44,7 @@ export default function CatsShower() {
                             : <p className="title">We don't know the breed of this cat</p>}
                         <img className="image" src={cat.url} alt="cat image"/>
                     </div>
-                    : <p> Click on the button to see the cats </p>
+                    : <p className="title"> Click on the button to see the cats </p>
             }
         </div>
     )
