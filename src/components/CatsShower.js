@@ -1,8 +1,10 @@
 import {useState} from "react";
 import axios from "axios";
+import "./CatsShower.css"
 
 export default function CatsShower() {
     const [cat, setCat] = useState({})
+    const [mark, setMark] = useState(false)
 
     async function getRandomCat() {
         const res = await axios.get("https://api.thecatapi.com/v1/images/search");
@@ -21,13 +23,32 @@ export default function CatsShower() {
     async function loadCat() {
         const {data} = await getCat();
         setCat(data);
+        setMark(true)
     }
+
 
     return (
         <div>
-            <button onClick={() => loadCat()}>Tab</button>
-            <h4>{cat.id}</h4>
-            <img src={cat.url} alt="cat image"/>
+            <button
+                className="space_btn"
+                href="/"
+                target="_blank"
+                onClick={() => loadCat()}
+            > Show the new cat
+            </button>
+            {
+                mark ?
+                    <div>
+                        {cat.breed ?
+                            <div>
+                                <h4>{cat.breed.name}</h4>
+                                <p>{cat.breed.temperament}</p>
+                            </div>
+                            : <p className="title">We don't know the breed of this cat</p>}
+                        <img className="image" src={cat.url} alt="cat image"/>
+                    </div>
+                    : <p> Click on the button to see the cats </p>
+            }
         </div>
     )
 }
