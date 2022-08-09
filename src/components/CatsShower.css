@@ -19,13 +19,6 @@ button {
 }
 
 /* btn style */
-
-@property --rotate {
-    syntax: "<angle>";
-    initial-value: 130deg;
-    inherits: false;
-}
-
 .space_btn {
     background: #191c29;
     padding: 10px 30px;
