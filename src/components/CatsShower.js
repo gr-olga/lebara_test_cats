@@ -26,13 +26,10 @@ export default function CatsShower() {
         setMark(true)
     }
 
-
     return (
         <div>
             <button
                 className="space_btn"
-                href="/"
-                target="_blank"
                 onClick={() => loadCat()}
             > Show the new cat
             </button>
